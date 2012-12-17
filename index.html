@@ -1,0 +1,462 @@
+<!doctype html>
+<html xml:lang="en-gb" lang="en-gb" >
+<!--
+
+ * @package     I Am a Flower
+ *
+ * @copyright   Copyright (C) 2012 Brian Williford, All rights reserved.
+ * @license     GNU General Public License version 2 or later;
+ * @Inquiries	info@ohmybrain.com - http://www.brianwilliford.com 
+ * Last Modified: BW 121212
+-->
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<base href="http://10.0.1.22/bw_com/web/dev/i_am_a_flower/bw_i_am_a_flower_web/" /> <!-- set your path if helpful -->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="I Am a Flower : Placement Website Menus or DOM Elements Around a Radius :: (x',y')=(cx+r*cos(α),cy+r*sin(α)) by Brian Williford" />
+	<title>I Am a Flower : Website Menus or DOM Elements Around a Radius :: (x',y')=(cx+r*cos(α),cy+r*sin(α))</title>	
+	<link rel="stylesheet" href="css/menu_flower.css" type="text/css" />
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/path.min.js" type="text/javascript"></script>
+	
+	<!-- lets set some global js vars -->
+	<script language="javascript" type="text/javascript">
+		// set up global vars
+		bw_gvars = {};
+		
+		// no touchie punk
+		bw_gvars.flowerBloomed				= 0;
+		
+		// muck away popjack
+		bw_gvars.pedalRotate				= 1; // 0 parallel to horizon :: 1 pedals perpendicular radius
+		bw_gvars.pedalAngle					= 90; // 45 can be fun / the above pedalRotate flips this integer 90 degrees
+		bw_gvars.cssWrapperSize				= 550; //px
+		bw_gvars.radiusSizeStart			= 50; //px
+		bw_gvars.radiusSizeEnd				= 130; //px
+		bw_gvars.useRandomCenterImageArray	= 1;
+		// replace this array with your own bad ass self or a directory of images.
+		bw_gvars.randomCenterImageArray 	= ['brian_williford_01_550.jpg', 'brian_williford_02_550.jpg', 'brian_williford_03_550.jpg', 'brian_williford_04_550.jpg', 'brian_williford_05_550.jpg'];
+	</script>
+</head>
+
+<body>
+
+<!-- outer most div element -->
+<div id="menu_flower_wrapper">
+	
+  	<!-- center image :: replace with a digital representation of your lovely noggin, or some extra special -->
+	<div id="menu-flower-center-image-wrapper">
+		<div class="circle-spinning-ring"></div>
+		<div class="circular-frame-2">
+			<div class="circular-frame-outer-1 circle"></div>
+			<div class="circular-frame-outer-2 circle"></div>
+			<figure id="center-image" >	
+				<!-- this image is inserted to id 'center-image' with jQeury below. You can use this static version if preferable -
+				<img src="images/brian_williford_01_550.jpg" alt="Brian Williford" height="550" width="550" />
+				-->
+				<figcaption class="circular-frame-caption">BEGIN HERE</figcaption>
+			</figure>
+		</div>
+	</div>
+
+	<!-- this is the javascript manipluated circumference the menu is placed around -->
+	<div id="menu-flower-pedal-wrapper">
+	
+		<!-- magic carpet ride -->
+		<canvas></canvas>
+		
+		<!-- replace these menus with your own or from a CMS database -->
+		<ul class="menu-flower-items">
+			<li class="item-101 current active deeper parent mod-flower-pedal-text">
+				<a href="#">Home</a>
+				<ul id="pedal-101" class="nav-child">
+					<li class="item-163 mod-flower-pedal-text"><a href="#">Style 1</a></li>
+					<li class="item-164 mod-flower-pedal-text"><a href="#">Style 2</a></li>
+					<li class="item-165 mod-flower-pedal-text"><a href="#">Style 3</a></li>
+					<li class="item-166 mod-flower-pedal-text"><a href="#">Style 4</a></li>
+				</ul>
+			</li>
+			<li class="item-102 deeper parent mod-flower-pedal-text"><a href="#">About</a>
+				<ul id="pedal-102" class="nav-child">
+					<li class="item-110 mod-flower-pedal-text"><a href="#">About 1</a></li>
+					<li class="item-111 mod-flower-pedal-text"><a href="#">About 2</a></li>
+					<li class="item-112 mod-flower-pedal-text"><a href="#">About 3</a></li>
+					<li class="item-113 mod-flower-pedal-text"><a href="#">About 4</a></li>
+					<li class="item-114 mod-flower-pedal-text"><a href="#">About 5</a></li>
+					<li class="item-115 mod-flower-pedal-text"><a href="#">About 6</a></li>
+					</ul></li>
+			<li class="item-103 deeper parent mod-flower-pedal-text"><a href="#">Products</a>
+				<ul id="pedal-103" class="nav-child">
+					<li class="item-119 mod-flower-pedal-text"><a href="#">Product 1</a></li>
+					<li class="item-120 mod-flower-pedal-text"><a href="#">Product 2</a></li>
+					<li class="item-121 mod-flower-pedal-text"><a href="#">Product 3</a></li>
+					<li class="item-122 mod-flower-pedal-text"><a href="#">Product 4</a></li>
+					<li class="item-123 mod-flower-pedal-text"><a href="#">Product 5</a></li>
+					<li class="item-124 mod-flower-pedal-text"><a href="#">Product 6</a></li>
+				</ul>
+			</li>
+			<li class="item-104 deeper parent mod-flower-pedal-text"><a href="#">Services</a>
+				<ul id="pedal-104" class="nav-child">
+					<li class="item-128 mod-flower-pedal-text"><a href="#">Service 1</a></li>
+					<li class="item-129 mod-flower-pedal-text"><a href="#">Service 2</a></li>
+					<li class="item-130 mod-flower-pedal-text"><a href="#">Service 3</a></li>
+					<li class="item-131 mod-flower-pedal-text"><a href="#">Service 4</a></li>
+					<li class="item-132 mod-flower-pedal-text"><a href="#">Service 5</a></li>
+					<li class="item-133 mod-flower-pedal-text"><a href="#">Service 6</a></li>
+				</ul>
+			</li>
+			<li class="item-105 deeper parent mod-flower-pedal-text"><a href="#">Thoughts</a>
+				<ul id="pedal-105" class="nav-child">
+					<li class="item-137 mod-flower-pedal-text"><a href="#">Thought 1</a></li>
+					<li class="item-138 mod-flower-pedal-text"><a href="#">Thought 2</a></li>
+					<li class="item-139 mod-flower-pedal-text"><a href="#">Thought 3</a></li>
+					<li class="item-140 mod-flower-pedal-text"><a href="#">Thought 4</a></li>
+					<li class="item-141 mod-flower-pedal-text"><a href="#">Thought 5</a></li>
+					<li class="item-142 mod-flower-pedal-text"><a href="#">Thought 6</a></li>
+				</ul>
+			</li>
+			<li class="item-106 deeper parent mod-flower-pedal-text"><a href="#">Engage</a>
+				<ul id="pedal-106" class="nav-child">
+					<li class="item-146 mod-flower-pedal-text"><a href="#">Engage 3</a></li>
+					<li class="item-147 mod-flower-pedal-text"><a href="#">Engage 4</a></li>
+					<li class="item-148 mod-flower-pedal-text"><a href="#">Engage 5</a></li>
+					<li class="item-149 mod-flower-pedal-text"><a href="#">Engage 6</a></li>
+					<li class="item-150 mod-flower-pedal-text"><a href="#">Engage 7</a></li>
+					<li class="item-151 mod-flower-pedal-text"><a href="#">Engage 8</a></li>
+				</ul>
+			</li>
+			<li class="item-109 deeper parent mod-flower-pedal-text"><a href="#">Contact</a>
+				<ul id="pedal-109" class="nav-child">
+					<li class="item-154 mod-flower-pedal-text"><a href="#" >Contact 1</a></li>
+					<li class="item-155 mod-flower-pedal-text"><a href="#" >Contact 2</a></li>
+					<li class="item-156 mod-flower-pedal-text"><a href="#" >Contact 3</a></li>
+					<li class="item-157 mod-flower-pedal-text"><a href="#" >Contact 4</a></li>
+					<li class="item-158 mod-flower-pedal-text"><a href="#" >Contact 5</a></li>
+					<li class="item-159 mod-flower-pedal-text"><a href="#" >Contact 6</a></li>
+				</ul>
+			</li>
+		</ul>
+	     
+	 </div>
+
+	 <!-- uncomment this for more family fun
+  	<div class="menu-flower-controls-wrapper">
+  		<div class="iphone-toggle-buttons">
+            <ul>
+                <li><div>Toggle Rotate</div><label for="toggle-rotate"><input type="checkbox" name="toggle-rotate" id="toggle-rotate" checked="checked" /><span>Toggle Rotate</span></label></li>
+                <li><div>Toggle Translation</div><label for="toggle-translation"><input type="checkbox" name="toggle-translation" id="toggle-translation" checked="checked" /><span>Toggle Translation</span></label></li>
+                <li><div>Toggle Guides</div><label for="toggle-guide"><input type="checkbox" name="toggle-guide" id="toggle-guide" /><span>Toggle Guides</span></label></li>
+                <li><div>Animate on Path</div><label for="run-animate-path"><input type="checkbox" name="run-animate-path" id="run-animate-path"  /><span>Animate on Path</span></label></li>
+                <li><div>Align to Middle/Bottom</div><label for="radio-0"><input type="radio" name="radio-button-group-0" id="radio-0" class="move-relative" relative-to="1" checked="checked" /><span>Align to Middle/Bottom</span></label></li>
+                <li><div>Align to Top/Right</div><label for="radio-1"><input type="radio" name="radio-button-group-0" id="radio-1" class="move-relative" relative-to="2" /><span>Align to Top/Right</span></label></li>
+                <li><div>Align to Bottom/Left</div><label for="radio-2"><input type="radio" name="radio-button-group-0" id="radio-2" class="move-relative" relative-to="3" /><span>Align to Bottom/Left<</span></label></li>
+			</ul>
+		</div>
+	</div>
+	<br clear="all">
+	-->
+	
+</div>
+
+<script type="text/javascript">
+	
+	// call this method to center an element horizontally and or vertically in window
+	jQuery.fn.centerInWindow = function (x,y) {
+	    this.css("position","absolute");
+	    if(x==true){
+		    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+	    }
+	    if(y==true){
+		    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+	    }
+	    return this;
+	}
+	
+	// call this method to center an element horizontally and vertically in outer div
+	jQuery.fn.centerInWrapper = function () {
+	    this.css("position","absolute");
+	    this.css("top", Math.max(0, (($('#menu_flower_wrapper').height() - $(this).outerHeight()) / 2) + $('#menu_flower_wrapper').scrollTop()) + "px");
+	    this.css("left", Math.max(0, (($('#menu_flower_wrapper').width() - $(this).outerWidth()) / 2) + $('#menu_flower_wrapper').scrollLeft()) + "px");
+	    return this;
+	}
+	
+	// jquery time
+	jQuery(function ($) { 
+		//alert("jQuery onload");
+		
+		// lets update the css for flower & pedal size to match the var chosen above
+		$("#menu_flower_wrapper").css({ 'width':''+bw_gvars.cssWrapperSize+'px','max-width':''+bw_gvars.cssWrapperSize+'px','height':''+bw_gvars.cssWrapperSize+'px','max-height':''+bw_gvars.cssWrapperSize+'px' }); 
+		//$("#menu-flower-pedal-wrapper").css({ 'width':''+bw_gvars.cssWrapperSize+'px','max-width':''+bw_gvars.cssWrapperSize+'px','height':''+bw_gvars.cssWrapperSize+'px','max-height':''+bw_gvars.cssWrapperSize+'px'}); 
+
+		// optional center main div and pedals - you might not want this css override
+		$('#menu_flower_wrapper').centerInWindow(x=true,y=false);
+		//$('#menu-flower-pedal-wrapper').center(); // i don't know man
+		$('#menu-flower-center-image-wrapper').centerInWrapper();
+		//$('.circle-spinning-ring').centerInWrapper();
+		
+		// optional random center image
+		if(bw_gvars.useRandomCenterImageArray == 1){
+			bw_gvars.randomCenterImage = bw_gvars.randomCenterImageArray [Math.floor(Math.random() * bw_gvars.randomCenterImageArray .length)];
+			// uipdate center image with optional random image
+			$('<img src="images/' + bw_gvars.randomCenterImage + '">').appendTo('#center-image');
+	    } else {
+		    $('<img src="images/brian_williford_01_550.jpg">').appendTo('#center-image');
+	    }
+	    
+		// fade other menus so sub menu is not hidden. z-indexes are bound to parent and not restackable
+		$(".menu-flower-items > li").hover(function() { // Mouse over
+			$(this).siblings().stop().fadeTo(300, 0.4);
+			$(this).parent().siblings().stop().fadeTo(300, 0.4); 
+		
+		}, function() { // Mouse out
+			$(this).siblings().stop().fadeTo(600, 1);
+			$(this).parent().siblings().stop().fadeTo(300, 1);
+		});			
+			
+		// vars
+	    var bw_example_1				= $('.soo-example-shell-1');
+	    var bw_circular_frame			= $('.circular-frame-2');
+	    var bw_circular_frame_hovered	= $('.circular-frame-2 .circular-frame-outer-2');
+	    
+		// center circle hover begin - exands flower center image, blooms pedals
+		$(".circular-frame-2").bind( { "mouseenter": function( event) {  
+		       bw_circular_frame.addClass('circular-frame-hovered'); 
+		       $("#menu-flower-pedal-wrapper").css({ 'z-index':'100'}); 
+		       $("#menu-flower-pedal-wrapper").animate( {width: '800px'}, 1500);
+		       $(".circle-spinning-ring").animate( {opacity: '0'}, 1500); 
+		       $(".circular-frame-caption").animate( {opacity: '0'}, 100); 
+
+		       // call bloom function
+		       expandFlowerPedals();
+		       
+		    },"mouseleave": function( event) {
+		         $(".circle-spinning-ring").animate( {opacity: '1'}, 2500);
+		         // set the pedals, or menu layer to be above the center
+		         $("#menu-flower-pedal-wrapper").css({ 'z-index':'200'}); 
+	
+		    }, "click": function( event ) {
+		       	 $(".circle-spinning-ring").animate( {opacity: '0'}, 500);
+		    }
+		});
+		
+		/*
+			* css element rotator .addClass :: 100 fast :: 200 medium :: 300 slow
+			* CLOCKWISE ROTATE  :: rotate_forward_100,rotate_forward_200,rotate_forward_300
+			* COUNTER CLOCKWISE :: rotate_backward_100,rotate_backward_200,rotate_backward_300
+		*/
+		
+		// css rotate the entire gizmo (uncomment below)
+		//$("#menu_flower_wrapper").addClass('rotate_forward_300'); 
+		
+		// css rotate the pedals (uncomment below)
+		//$("#menu-flower-pedal-wrapper").addClass('rotate_backward_300'); 
+		
+		// css rotate the chewey center (uncomment below)
+		//$("#menu-flower-center-image-wrapper").addClass('rotate_backward_300');
+		//$(".circular-frame-caption").addClass('rotate_forward_300'); // keep text inside level
+		
+	
+		// bloom function - circle start point exapnded on center image rollover. set start and end size the same to disable bloom animation
+		function expandFlowerPedals(){
+			//alert('expandFlowerPedals called');
+			
+			var radiusSizeStart		= bw_gvars.radiusSizeStart;
+			var radiusSizeEnd		= bw_gvars.radiusSizeEnd;	
+			var pedalRotate			= bw_gvars.pedalRotate;
+			//
+			if(radiusSizeStart != radiusSizeEnd){
+				if(bw_gvars.flowerBloomed < 1){
+					(function movePedal() {
+					  setTimeout(function() {
+					    if (radiusSizeStart++ < radiusSizeEnd) {
+					   	 //alert('loop: ' + radiusSizeStart);
+					      setFlowerCanvas(radiusSizeStart,1,0,pedalRotate);
+					      movePedal();
+					    }
+					  }, 10);
+					})();
+				}
+			}
+			// bloomed
+			bw_gvars.flowerBloomed	= 1;
+		} 
+	
+		// set up the flower like canvas of elements and sub elements around circle via (x',y')=(cx+r*cos(α),cy+r*sin(α)
+		function setFlowerCanvas(circle_size,pedal_orientation,angleOffset,pedal_rotate){
+			/*
+				* (x',y')=(cx+r*cos(α),cy+r*sin(α)) appled set joomla menu items and sub-menu items around a circle 
+				* formula/math credit goes to Ben Olson: http://benknowscode.wordpress.com/2012/09/24/aligning-dom-elements-around-a-circle/
+				* path.js required and located at: http://bseth99.github.com/
+				* implimentatin and creative by Brian Williford http://www.brianwilliford.com/
+				//
+				* circle_size 		= integer / radius in pixels
+				* pedal_orientation = ineger / 1 = perpendicular to circle :: 2 = parallel to the horizon (not done)
+			*/
+		
+			//alert("circle_size passed: " + circle_size);
+			//alert("pedal_orientation: " + pedal_orientation);
+			//alert("angleOffset: " + angleOffset);
+			//alert("pedal_rotate: " + pedal_rotate);
+					
+			// vars
+			var drawGuides = false,
+			doRotate = pedal_rotate,
+			doTranslate = true,
+			angleOffset = angleOffset,
+			translateRelative = pedal_orientation,
+			doOnce = true;
+			// adjust offeset settings for pedal rotation for your template voodoo
+			if(bw_gvars.pedalRotate < 1){
+				cxOffset = 0;
+				cyOffset = 48;
+				circle_size	= circle_size+40;
+			} else {
+				cxOffset = 0;
+				cyOffset = 8;
+			}
+			// circleRadius = radius : cx = width : cy = height 
+			var circleRadius = circle_size, cx = bw_gvars.cssWrapperSize/2+cxOffset, cy = bw_gvars.cssWrapperSize/2+cyOffset,
+			$circle = $('#menu-flower-pedal-wrapper canvas'),
+			canvas1 = $circle[0];
+		       
+			// add some general padding
+			canvas1.width = cx * 2 + 4;
+			canvas1.height = cy * 2 + 4;
+				//alert("canvas1.width: " +canvas1.width);
+				//alert("canvas1.height: " +canvas1.height);
+				// alert('circleRadius: '+circleRadius);
+		
+			// Center of the circle relative to canvas
+			cx += 2;
+			cy += 2;
+				//alert("cx: " + cx +  " cy: " + cy);
+	
+			// set the postion around path
+			function position(){
+		
+				// center of the circle relative to the page
+				var cpos = $circle.offset();
+				px = cpos.left + cx,
+				py = cpos.top + cy;
+				//alert("px: " + px +  " py: " + py);
+				
+				// items along path
+				var $items = $('#menu-flower-pedal-wrapper .menu-flower-items').children(),
+				icnt = $items.length,
+				dstep = 360 / icnt,
+				cpath = PATH([
+					{fn: 'start', x: cx+circleRadius, y: cy},
+					{fn: 'circle', radius: circleRadius}
+				]);
+		
+				// Move the start of the circle to the top.
+				cpath.rotate(-bw_gvars.pedalAngle, cpath.center());
+				
+				var ctx = canvas1.getContext( "2d" ),
+				$pts = $('#menu-flower-pedal-wrapper #points');
+				
+				ctx.fillStyle = "white"; // you could change this
+				
+				if (!drawGuides) {
+				  ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+				}
+				
+				$items.each(function (idx, el){
+					var $el = $(el),
+					   angle = dstep * idx,
+					   pt = cpath.step((angle + angleOffset) / 360),
+					   tfm = '',
+					   tx, ty;
+					   
+					  // layout methods
+					switch (translateRelative){
+					  case 1 : // bottom / middle
+					     tx = $el.outerWidth(true) / 2;
+					     ty = $el.outerHeight(true);
+					     break;
+					
+					  case 2 : // top / right
+					     tx = $el.outerWidth(true);
+					     ty = 0;
+					     angle -= 180;  // Need to flip them over to align to the top ...
+					     break;
+					
+					  case 3 : // bottom/left
+					     tx = 0;
+					     ty = $el.outerHeight(true);
+					     break;
+					  }
+						  //alert('angle: '+ angle + 'angleOffset: ' + angleOffset);
+				
+				   tfm += doRotate ? 'rotate('+(angle + angleOffset)+'deg) ' : '' ;
+				   tfm += doTranslate ? 'translate(-'+(tx)+'px, -'+(ty)+'px)' : '';
+				
+					$el.css({
+						left: (pt.x) + 'px',
+						top: (pt.y) + 'px',
+						transformOrigin: 'top left',
+						transform: tfm
+					});
+					
+					$($pts.children()[idx]).css({
+						left: (pt.x) + 'px',
+						top: (pt.y) + 'px'
+					});
+				});
+				
+				// option show canvas circle radius
+				if (drawGuides && doOnce){
+				 ctx.strokeStyle = "black";
+				 ctx.lineWidth = 1;
+				
+				 ctx.beginPath();
+				 ctx.arc(cx, cy, r, 0, 2*Math.PI);
+				 ctx.stroke();
+				}
+				
+				doOnce = false;
+			}
+		
+		   // hidden controller functions. Unhide controller to play here
+		   $('#toggle-guide').click(function (){
+		        drawGuides = !drawGuides;
+		        doOnce = drawGuides;
+		        position();
+		     });
+		
+		   $('#toggle-rotate').click(function (){
+		        doRotate = !doRotate;
+		        position();
+		     });
+		
+		   $('#toggle-translation').click(function (){
+		        doTranslate = !doTranslate;
+		        position();
+		     });
+		
+		   $('.move-relative').click(function (){
+		        translateRelative = parseInt($(this).attr('relative-to'), 10);
+		        position();
+		     });
+		
+		   $('#run-animate-path').click(function (){
+		        aOff = 0;
+		
+		        $(this).animate({tabIndex: 0},
+		           {
+		              duration: 10000,
+		              easing: 'linear',
+		              step: function (now, fx) { aOff = 360 * fx.pos; position();}
+		           });
+		     });
+			
+			// set position around path		 
+		   position();
+		};
+	
+		// pre-bloom start point
+		setFlowerCanvas(bw_gvars.radiusSizeStart,1,0,bw_gvars.pedalRotate);
+
+	// end onload
+	});
+</script>
