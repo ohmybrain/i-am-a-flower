@@ -1,4 +1,4 @@
-i-am-a-flower Radius Menu 1.0.0
+i-am-a-flower Radius Menu 1.0.1
 =============
 I Am a Flower Radius Menu System creates a flower like array of menu elements and sub elements around circle via (x',y')=(cx+r*cos(α),cy+r*sin(α).
 
