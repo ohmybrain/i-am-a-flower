@@ -7,7 +7,7 @@
  * @copyright   Copyright (C) 2012 Brian Williford, All rights reserved.
  * @license     GNU General Public License version 2 or later;
  * @Inquiries	info@ohmybrain.com - http://www.brianwilliford.com 
- * Last Modified: BW 121217
+ * Last Modified: BW 121212 BW 121226
 -->
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
 	<script src="js/jquery.min.js" type="text/javascript"></script>
 	<script src="js/path.min.js" type="text/javascript"></script>
 	<script src="jquery.ui.touch-punch.min.js" type="text/javascript"></script>
-	
+
 	<!-- lets set some global js vars -->
 	<script language="javascript" type="text/javascript">
 		// set up global vars
@@ -174,13 +174,29 @@
 	}
 	
 	// call this method to center an element horizontally and vertically in outer div
-	jQuery.fn.centerInWrapper = function () {
+	jQuery.fn.centerInWrapper = function (x,y) {
 	    this.css("position","absolute");
-	    this.css("top", Math.max(0, (($('#menu_flower_wrapper').height() - $(this).outerHeight()) / 2) + $('#menu_flower_wrapper').scrollTop()) + "px");
-	    this.css("left", Math.max(0, (($('#menu_flower_wrapper').width() - $(this).outerWidth()) / 2) + $('#menu_flower_wrapper').scrollLeft()) + "px");
+	    if(x==true){
+	    	this.css("top", Math.max(0, (($('#menu_flower_wrapper').height() - $(this).outerHeight()) / 2) + $('#menu_flower_wrapper').scrollTop()) + "px");
+	    }
+	    if(y==true){
+	   		this.css("left", Math.max(0, (($('#menu_flower_wrapper').width() - $(this).outerWidth()) / 2) + $('#menu_flower_wrapper').scrollLeft()) + "px");
+	    }
 	    return this;
 	}
 	
+		// call this method to center an element horizontally and vertically in inner div
+		jQuery.fn.centerInCenterWrapper = function (x,y) {
+		    this.css("position","absolute");
+		    if(x==true){
+		    	this.css("top", Math.max(0, (($('#menu-flower-center-image-wrapper').height() - $(this).outerHeight()) / 2) + $('#menu-flower-center-image-wrapper').scrollTop()) + "px");
+		    }
+		    if(y==true){
+		   		this.css("left", Math.max(0, (($('#menu-flower-center-image-wrapper').width() - $(this).outerWidth()) / 2) + $('#menu-flower-center-image-wrapper').scrollLeft()) + "px");
+		    }
+		    return this;
+		}
+			
 	// jquery time
 	jQuery(function ($) { 
 		//alert("jQuery onload");
@@ -188,13 +204,13 @@
 		// lets update the css for flower & pedal size to match the var chosen above
 		$("#menu_flower_wrapper").css({ 'width':''+bw_gvars.cssWrapperSize+'px','max-width':''+bw_gvars.cssWrapperSize+'px','height':''+bw_gvars.cssWrapperSize+'px','max-height':''+bw_gvars.cssWrapperSize+'px' }); 
 		//$("#menu-flower-pedal-wrapper").css({ 'width':''+bw_gvars.cssWrapperSize+'px','max-width':''+bw_gvars.cssWrapperSize+'px','height':''+bw_gvars.cssWrapperSize+'px','max-height':''+bw_gvars.cssWrapperSize+'px'}); 
-
-		// optional center main div and pedals - you might not want this css override
-		$('#menu_flower_wrapper').centerInWindow(x=true,y=false);
-		//$('#menu-flower-pedal-wrapper').center(); // i don't know man
-		$('#menu-flower-center-image-wrapper').centerInWrapper();
-		//$('.circle-spinning-ring').centerInWrapper();
 		
+		// center this element - cisable and use CSS values to do creative offsets
+		$('#menu-flower-center-image-wrapper').centerInWrapper(x=true,y=true);
+		$('#menu-flower-pedal-wrapper').centerInWrapper(x=true,y=true);
+		$('.circle-spinning-ring').centerInCenterWrapper(x=true,y=true);
+		$('.circular-frame-2').centerInCenterWrapper(x=true,y=true);
+
 		// optional random center image
 		if(bw_gvars.useRandomCenterImageArray == 1){
 			bw_gvars.randomCenterImage = bw_gvars.randomCenterImageArray [Math.floor(Math.random() * bw_gvars.randomCenterImageArray .length)];
@@ -313,7 +329,7 @@
 				circle_size	= circle_size+40;
 			} else {
 				cxOffset = 0;
-				cyOffset = 8;
+				cyOffset = 0;
 			}
 			// circleRadius = radius : cx = width : cy = height 
 			var circleRadius = circle_size, cx = bw_gvars.cssWrapperSize/2+cxOffset, cy = bw_gvars.cssWrapperSize/2+cyOffset,

@@ -4,7 +4,7 @@
  * @copyright	Copyright (C) 2012 Oh My Brain, inc. All rights reserved
  * @license     GNU General Public License version 2 or later
  * @ Inquiries	info@ohmybrain.com - http://www.brianwilliford.com 
- * @modified 	BW 121212
+ * @modified 	BW 121212 BW121226
 */
 
 html {
@@ -31,8 +31,6 @@ body{
 	margin-right: auto;
 	overflow: hidden;
 }
-
-
 
 /* circular image :: some of these values may be updated with jQuery -------------------------------------------------------- */	
 #menu-flower-pedal-wrapper{
@@ -196,11 +194,12 @@ body{
 	position:relative;
 	width:200px;
 	height:200px;
-	float:left;
-	margin:50px 40px;
-	border-radius:200px;
-	-moz-border-radius:200px;
-	-webkit-border-radius:200px;
+	top: 40px;
+	left: 40px;
+	margin:0;	
+	-webkit-border-radius:100px;
+	   -moz-border-radius:100px;
+	   		border-radius:100px;
 	
 	z-index: 200;
 }
